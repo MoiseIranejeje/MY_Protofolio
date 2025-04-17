@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Path2Learn: School Search</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Modern CSS Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Global Styles */
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f8f9fa;
+        color: #2d3436;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background: #2d3436;
+        color: white;
+        padding: 2rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #74b9ff;
+        text-decoration: none;
+      }
+
+      /* Search Section */
+      .search-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        margin-bottom: 3rem;
+      }
+
+      .filters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .filter-group {
+        margin-bottom: 1rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #2d3436;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid #dfe6e9;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #74b9ff;
+      }
+
+      button {
+        background: #74b9ff;
+        color: white;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+      }
+
+      /* Results Section */
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .school-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .school-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .school-property {
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .school-property:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      /* Team Section */
+      .team-section {
+        margin: 4rem 0;
+        padding: 3rem 0;
+        background: #f1f3f5;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .team-member {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .member-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 3px solid #74b9ff;
+      }
+
+      .member-role {
+        color: #74b9ff;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .search-section {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a
+          href="https://drive.google.com/file/d/1Rtyr-Hm2ArlLxIsOoZKKfEA4Wlwb2Ce6/view?usp=sharing"
+          class="logo"
+          >Path2Learn</a
+        >
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="search-section">
+        <h1>Find Your Perfect School in Rwanda</h1>
+        <p class="intro-text">
+          Discover the best educational institutions with our comprehensive
+          search tool. Filter by location, fees, and extracurricular activities
+          to find your ideal match.
+        </p>
+
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label for="search">School Name</label>
+            <input type="text" id="search" placeholder="Search schools..." />
+          </div>
+          <div class="filter-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="Enter location" />
+          </div>
+          <div class="filter-group">
+            <label for="fees">Fee Range</label>
+            <select id="fees">
+              <option value="">All Fees</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="extracurriculars">Activities</label>
+            <select id="extracurriculars">
+              <option value="">All Activities</option>
+              <option value="sports">Sports</option>
+              <option value="arts">Arts</option>
+              <option value="music">Music</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="searchSchools()">Search Schools</button>
+      </section>
+
+      <section id="results" class="results-grid"></section>
+
+      <!-- Team Section -->
+      <section class="team-section">
+        <div class="container">
+          <h2>Our Development Team</h2>
+          <div class="team-grid">
+            <div class="team-member">
+              <img
+                src="https://drive.google.com/file/d/1hAEPjAIyWqdu9w8zc08-mLNF6FxkpzaY/view?usp=sharing"
+                alt="Team Member"
+                class="member-photo"
+              />
+              <h3>Moise IRANEJEJE</h3>
+              <p class="member-role">Lead Developer</p>
+              <p>
+                Full-stack developer with passion for educational technology
+              </p>
+            </div>
+            <div class="team-member">
+              <img
+                src="https://drive.google.com/file/d/1j_5quF_Oj6C5pJnbw6lBsKIUNSFLA2Ij/view?usp=sharing"
+                alt="Team Member"
+                class="member-photo"
+              />
+              <h3>KAZENEZA Jessica Beline</h3>
+              <p class="member-role">UI/UX Designer</p>
+              <p>
+                Creating intuitive user experiences for better education access
+              </p>
+            </div>
+            <div class="team-member">
+              <img
+                src="https://drive.google.com/file/d/1pf8fkLN5tswE7QrFYyCr-LTS3LE8x80g/view?usp=sharing"
+                alt="Team Member"
+                class="member-photo"
+              />
+              <h3>KAYONGA Elvin</h3>
+              <p class="member-role">Data Specialist</p>
+              <p>Ensuring accurate and up-to-date school information</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      //Schools Data
+      const schools = [
+        {
+          name: "Green Hills Academy",
+          location: "Kigali",
+          fees: "high",
+          extracurriculars: "Debate Club, Music, Robotics",
+          description:
+            "A top-tier school focusing on innovation and creativity.",
+        },
+        {
+          name: "Lycee de Kigali",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Football, Basketball, Drama Club",
+          description: "A balanced school for academics and sports.",
+        },
+        {
+          name: "Ecole Belge de Kigali",
+          location: "Kigali",
+          fees: "high",
+          extracurriculars: "Art Club, Science Club, Swimming",
+          description: "Emphasis on international education and arts.",
+        },
+        {
+          name: "FAWE Girls' School",
+          location: "Kigali",
+          fees: "low",
+          extracurriculars: "STEM Club, Athletics, Girls' Empowerment",
+          description: "Empowering young women through education.",
+        },
+        {
+          name: "Nu-Vision High School",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Chess, Coding Club, Volleyball",
+          description: "Focus on STEM and extracurricular excellence.",
+        },
+        {
+          name: "St. Andre School",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Robotics, Music, Drama",
+          description: "A well-rounded school for academics and technology.",
+        },
+        {
+          name: "King David Academy",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Basketball, Science Fair, Drama",
+          description: "Known for strong science and leadership programs.",
+        },
+        {
+          name: "Petit Seminaire Kabgayi",
+          location: "Muhanga",
+          fees: "low",
+          extracurriculars: "Music, Traditional Dance, Football",
+          description: "Focus on traditions and academic excellence.",
+        },
+        {
+          name: "Gashora Girls Academy",
+          location: "Bugesera",
+          fees: "high",
+          extracurriculars: "STEM Club, Debate, Athletics",
+          description: "A premier girls' school focusing on leadership.",
+        },
+        {
+          name: "Nyundo School of Art",
+          location: "Rubavu",
+          fees: "low",
+          extracurriculars: "Visual Arts, Traditional Dance",
+          description: "Specializes in visual arts and creative expression.",
+        },
+        {
+          name: "Riviera High School",
+          location: "Kigali",
+          fees: "high",
+          extracurriculars: "Robotics, Tennis, Science Fair",
+          description: "An elite school for academics and sports.",
+        },
+        {
+          name: "Byimana School of Science",
+          location: "Ruhango",
+          fees: "medium",
+          extracurriculars: "Science Club, Athletics, Drama",
+          description: "Focus on science and innovation.",
+        },
+        {
+          name: "Apaper Complex School",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Music, Football, Debate Club",
+          description: "Encourages academic and cultural excellence.",
+        },
+        {
+          name: "Kibungo Adventist School",
+          location: "Ngoma",
+          fees: "medium",
+          extracurriculars: "Choir, Community Service, Basketball",
+          description: "Strong focus on community and spiritual growth.",
+        },
+        {
+          name: "Muhanga Heroes School",
+          location: "Muhanga",
+          fees: "low",
+          extracurriculars: "Drama, Science Club, Volleyball",
+          description: "Known for holistic education programs.",
+        },
+        {
+          name: "Sonrise High School",
+          location: "Musanze",
+          fees: "medium",
+          extracurriculars: "Science Club, Athletics, Music",
+          description: "Integrates faith and academic excellence.",
+        },
+        {
+          name: "IFAK (Institut de Formation)",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Music, Chess, Debate",
+          description: "Promotes creativity and intellectual growth.",
+        },
+        {
+          name: "Adventist School of Gitwe",
+          location: "Ruhango",
+          fees: "low",
+          extracurriculars: "Choir, Athletics, Football",
+          description: "Combines spirituality with education.",
+        },
+        {
+          name: "Glory Secondary School",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Music, Basketball, Science Club",
+          description: "Focus on balanced academic development.",
+        },
+        {
+          name: "Remera Protestant School",
+          location: "Kigali",
+          fees: "low",
+          extracurriculars: "Volleyball, Debate, Music",
+          description: "Encourages sports and intellectual growth.",
+        },
+        {
+          name: "APE Rugunga",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Athletics, Drama, Debate",
+          description: "Offers a broad curriculum for holistic development.",
+        },
+        {
+          name: "Kigali Christian School",
+          location: "Kigali",
+          fees: "high",
+          extracurriculars: "Robotics, Community Service, Music",
+          description: "Integrates faith and technology.",
+        },
+        {
+          name: "Kayonza Modern School",
+          location: "Kayonza",
+          fees: "medium",
+          extracurriculars: "Music, Athletics, Debate",
+          description: "Focuses on modern and traditional learning.",
+        },
+        {
+          name: "St. Ignatius High School",
+          location: "Kigali",
+          fees: "high",
+          extracurriculars: "Robotics, Drama, Music",
+          description: "Known for academic and technological excellence.",
+        },
+        {
+          name: "Gikondo Secondary School",
+          location: "Kigali",
+          fees: "low",
+          extracurriculars: "Traditional Dance, Football, Athletics",
+          description: "Integrates cultural activities into academics.",
+        },
+        {
+          name: "Maranyundo Girls School",
+          location: "Bugesera",
+          fees: "medium",
+          extracurriculars: "Science Club, Debate, Athletics",
+          description: "Empowering girls through science and leadership.",
+        },
+        {
+          name: "Rusumo High School",
+          location: "Kirehe",
+          fees: "low",
+          extracurriculars: "Football, Athletics, Drama",
+          description: "Focuses on academics and teamwork.",
+        },
+        {
+          name: "Alliance High School",
+          location: "Kigali",
+          fees: "medium",
+          extracurriculars: "Robotics, Music, Debate",
+          description: "Known for modern education practices.",
+        },
+        {
+          name: "Kagarama Secondary School",
+          location: "Kigali",
+          fees: "low",
+          extracurriculars: "Music, Basketball, Athletics",
+          description: "Promotes academic and sports excellence.",
+        },
+        {
+          name: "Rwamagana Leaders' School",
+          location: "Rwamagana",
+          fees: "medium",
+          extracurriculars: "STEM Club, Community Service, Drama",
+          description: "Focuses on leadership and academics.",
+        },
+      ];
+
+      // Updated search function with card-based results
+      function searchSchools() {
+        const search = document.getElementById("search").value.toLowerCase();
+        const location = document
+          .getElementById("location")
+          .value.toLowerCase();
+        const fees = document.getElementById("fees").value.toLowerCase();
+        const extracurriculars = document
+          .getElementById("extracurriculars")
+          .value.toLowerCase();
+
+        const resultsContainer = document.getElementById("results");
+        resultsContainer.innerHTML = "";
+        let hasResults = false;
+
+        for (const school of schools) {
+          if (
+            (search === "" || school.name.toLowerCase().includes(search)) &&
+            (location === "" ||
+              school.location.toLowerCase().includes(location)) &&
+            (fees === "" || school.fees.toLowerCase() === fees) &&
+            (extracurriculars === "" ||
+              school.extracurriculars.toLowerCase().includes(extracurriculars))
+          ) {
+            const card = document.createElement("div");
+            card.className = "school-card";
+            card.innerHTML = `
+                <div class="school-property">
+                    <h3>${school.name}</h3>
+                </div>
+                <div class="school-property">
+                    <strong>Location:</strong> ${school.location}
+                </div>
+                <div class="school-property">
+                    <strong>Fees:</strong> ${
+                      school.fees.charAt(0).toUpperCase() + school.fees.slice(1)
+                    }
+                </div>
+                <div class="school-property">
+                    <strong>Activities:</strong> ${school.extracurriculars}
+                </div>
+                <div class="school-property">
+                    ${school.description}
+                </div>
+            `;
+            resultsContainer.appendChild(card);
+            hasResults = true;
+          }
+        }
+
+        if (!hasResults) {
+          resultsContainer.innerHTML =
+            '<p class="no-results">No schools found matching your criteria.</p>';
+        }
+      }
+    </script>
+  </body>
+</html>
